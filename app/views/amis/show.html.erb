@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @ami %>
+
+<div>
+  <%= link_to "Edit this ami", edit_ami_path(@ami) %> |
+  <%= link_to "Back to amis", amis_path %>
+
+  <%= button_to "Destroy this ami", @ami, method: :delete %>
+</div>

@@ -1,0 +1,15 @@
+<div id="navbar">
+  <%= link_to "Home", "/", class:"navbar_link#{(" active" if params[:controller]=='home')}" %>
+
+  <% %w[publications amis commentaires enregistres likes notifications utilisateur_dossiers utilisateurs].each do |page| %>
+    <%= link_to page.split('_').map(&:capitalize).join(' '), send("#{page}_path"), class:"navbar_link#{(" active" if params[:controller]==page)}" %>
+  <% end %>
+</div>
+<% if false %>
+  <% if admin_user_signed_in? %>
+    <h2><strong>Welcome back,</strong> <%= current_admin_user.email %></h2>
+    <%= link_to "Sign out", destroy_admin_user_session_path, data: {method: :delete} %>
+  <% else %>
+    <%= link_to "Sign in", new_admin_user_session_path %>
+  <% end %>
+<% end %>

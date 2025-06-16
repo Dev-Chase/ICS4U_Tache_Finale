@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Enregistres" %>
+
+<h1>Enregistres</h1>
+
+<div id="enregistres">
+  <% @enregistres.each do |enregistre| %>
+    <%= render enregistre %>
+    <p>
+      <%= link_to "Show this enregistre", enregistre %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New enregistre", new_enregistre_path %>

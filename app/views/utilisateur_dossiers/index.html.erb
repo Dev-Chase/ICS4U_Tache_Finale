@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Utilisateur dossiers" %>
+
+<h1>Utilisateur dossiers</h1>
+
+<div id="utilisateur_dossiers">
+  <% @utilisateur_dossiers.each do |utilisateur_dossier| %>
+    <%= render utilisateur_dossier %>
+    <p>
+      <%= link_to "Show this utilisateur dossier", utilisateur_dossier %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New utilisateur dossier", new_utilisateur_dossier_path %>

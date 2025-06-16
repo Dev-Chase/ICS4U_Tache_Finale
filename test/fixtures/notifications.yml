@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  utilisateur: one
+  source_utilisateur: one
+  publication: one
+  commentaire: one
+  type: 
+  lu: false
+  date: 2025-06-16 14:17:40
+
+two:
+  utilisateur: two
+  source_utilisateur: two
+  publication: two
+  commentaire: two
+  type: 
+  lu: false
+  date: 2025-06-16 14:17:40

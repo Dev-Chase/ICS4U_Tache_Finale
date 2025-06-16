@@ -1,0 +1,12 @@
+<% content_for :title, "Editing enregistre" %>
+
+<h1>Editing enregistre</h1>
+
+<%= render "form", enregistre: @enregistre %>
+
+<br>
+
+<div>
+  <%= link_to "Show this enregistre", @enregistre %> |
+  <%= link_to "Back to enregistres", enregistres_path %>
+</div>

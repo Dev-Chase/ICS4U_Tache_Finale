@@ -1,0 +1,27 @@
+<%= form_with(model: enregistre) do |form| %>
+  <% if enregistre.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(enregistre.errors.count, "error") %> prohibited this enregistre from being saved:</h2>
+
+      <ul>
+        <% enregistre.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :utilisateur_dossier_id, style: "display: block" %>
+    <%= form.text_field :utilisateur_dossier_id %>
+  </div>
+
+  <div>
+    <%= form.label :publication_id, style: "display: block" %>
+    <%= form.text_field :publication_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

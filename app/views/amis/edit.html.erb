@@ -1,0 +1,12 @@
+<% content_for :title, "Editing ami" %>
+
+<h1>Editing ami</h1>
+
+<%= render "form", ami: @ami %>
+
+<br>
+
+<div>
+  <%= link_to "Show this ami", @ami %> |
+  <%= link_to "Back to amis", amis_path %>
+</div>

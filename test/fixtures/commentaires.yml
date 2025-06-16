@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  utilisateur: one
+  publication: one
+  date_publiee: 2025-06-16 14:16:40
+  contenue: MyText
+
+two:
+  utilisateur: two
+  publication: two
+  date_publiee: 2025-06-16 14:16:40
+  contenue: MyText

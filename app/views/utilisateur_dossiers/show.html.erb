@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @utilisateur_dossier %>
+
+<div>
+  <%= link_to "Edit this utilisateur dossier", edit_utilisateur_dossier_path(@utilisateur_dossier) %> |
+  <%= link_to "Back to utilisateur dossiers", utilisateur_dossiers_path %>
+
+  <%= button_to "Destroy this utilisateur dossier", @utilisateur_dossier, method: :delete %>
+</div>

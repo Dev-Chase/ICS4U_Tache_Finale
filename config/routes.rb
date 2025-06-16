@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  resources :notifications
+  resources :commentaires
+  resources :publications
+  resources :likes
+  resources :amis
+  resources :enregistres
+  resources :utilisateur_dossiers
+  resources :utilisateurs
+  root to: "home#page"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

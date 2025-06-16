@@ -1,0 +1,12 @@
+<% content_for :title, "Editing utilisateur dossier" %>
+
+<h1>Editing utilisateur dossier</h1>
+
+<%= render "form", utilisateur_dossier: @utilisateur_dossier %>
+
+<br>
+
+<div>
+  <%= link_to "Show this utilisateur dossier", @utilisateur_dossier %> |
+  <%= link_to "Back to utilisateur dossiers", utilisateur_dossiers_path %>
+</div>
