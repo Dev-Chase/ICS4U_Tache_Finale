@@ -1,4 +1,5 @@
 class EnregistresController < ApplicationController
+  before_action :authenticate_utilisateur!
   before_action :set_enregistre, only: %i[ show edit update destroy ]
 
   # GET /enregistres or /enregistres.json

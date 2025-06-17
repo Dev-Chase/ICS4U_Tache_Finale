@@ -19,6 +19,13 @@
 
   <body>
     <%= render "shared/navbar" %>
+    <% if utilisateur_signed_in? %>
+      Bonjour <%= "#{current_utilisateur.surnom} (#{current_utilisateur.prenom})" %> |
+      <%= link_to "Déconnexion", destroy_utilisateur_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Connexion", new_utilisateur_session_path %> |
+      <%= link_to "Inscription", new_utilisateur_registration_path %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

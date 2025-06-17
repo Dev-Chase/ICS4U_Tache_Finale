@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  utilisateur: one
+  publication: one
+  commentaire: one
+  raison: MyText
+  etat: MyString
+
+two:
+  utilisateur: two
+  publication: two
+  commentaire: two
+  raison: MyText
+  etat: MyString

@@ -3,11 +3,14 @@ class PublicationsController < ApplicationController
 
   # GET /publications or /publications.json
   def index
-    @publications = Publication.all
+    @publications = Publication.with_attached_media.order(created_at: :desc).page(params[:page]).per(10)
+    # @publications = liked_posts_if_signed_in(Publication.with_attached_media.order(created_at: :desc).page(params[:page]).per(10))
   end
 
   # GET /publications/1 or /publications/1.json
   def show
+    @commentaires = @publication.commentaires
+    @commentaire = Commentaire.new
   end
 
   # GET /publications/new
@@ -61,10 +64,13 @@ class PublicationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_publication
       @publication = Publication.find(params[:id])
+      # if utilisateur_signed_in?
+      #   @publication.liked = (Like.find_by(utilisateur_id: @publication.utilisateur_id, publication_id: @publication.id)) ? true : false
+      # end
     end
 
     # Only allow a list of trusted parameters through.
     def publication_params
-      params.require(:publication).permit(:utilisateur_id, :caption, :date_publiee, :media)
+      params.require(:publication).permit(:utilisateur_id, :caption, :media)
     end
 end

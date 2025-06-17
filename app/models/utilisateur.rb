@@ -1,10 +1,15 @@
 class Utilisateur < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
   has_many :utilisateur_dossiers, dependent: :destroy
   has_many :publications, dependent: :destroy
   has_many :commentaires, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :enregistres, through: :utilisateur_dossiers
   has_many :notifications, dependent: :destroy
+  has_many :signalements, dependent: :destroy
 
   # User relationships
   has_many :amis_as_user1, class_name: "Ami", foreign_key: "utilisateur_1_id", dependent: :destroy

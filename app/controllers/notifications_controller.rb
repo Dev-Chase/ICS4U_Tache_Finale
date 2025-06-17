@@ -1,4 +1,5 @@
 class NotificationsController < ApplicationController
+  before_action :authenticate_utilisateur!
   before_action :set_notification, only: %i[ show edit update destroy ]
 
   # GET /notifications or /notifications.json
@@ -65,6 +66,6 @@ class NotificationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def notification_params
-      params.require(:notification).permit(:utilisateur_id, :source_utilisateur_id, :publication_id, :commentaire_id, :type, :lu, :date)
+      params.require(:notification).permit(:utilisateur_id, :source_utilisateur_id, :publication_id, :commentaire_id, :type, :lu)
     end
 end

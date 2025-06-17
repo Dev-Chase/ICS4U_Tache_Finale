@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @signalement %>
+
+<div>
+  <%= link_to "Edit this signalement", edit_signalement_path(@signalement) %> |
+  <%= link_to "Back to signalements", signalements_path %>
+
+  <%= button_to "Destroy this signalement", @signalement, method: :delete %>
+</div>

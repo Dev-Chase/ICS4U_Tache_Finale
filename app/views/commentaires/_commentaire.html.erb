@@ -1,17 +1,12 @@
-<div id="<%= dom_id commentaire %>">
+<div class="field_shown" id="<%= dom_id commentaire %>">
   <p>
     <strong>Utilisateur:</strong>
-    <%= commentaire.utilisateur_id %>
+    <%= commentaire.utilisateur.surnom %>
   </p>
 
   <p>
     <strong>Publication:</strong>
-    <%= commentaire.publication_id %>
-  </p>
-
-  <p>
-    <strong>Date publiee:</strong>
-    <%= commentaire.date_publiee %>
+    <%= link_to commentaire.publication.description, publication_path(commentaire.publication_id) %>
   </p>
 
   <p>

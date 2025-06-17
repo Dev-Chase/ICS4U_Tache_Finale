@@ -1,0 +1,29 @@
+<div class="field_shown" id="<%= publication.id %>">
+  <p>
+    <strong>Utilisateur:</strong>
+    <%= link_to publication.utilisateur.surnom, utilisateur_path(publication.utilisateur_id) %>
+  </p>
+
+  <p>
+    <strong>Caption:</strong>
+    <%= publication.caption %>
+  </p>
+
+	<% I18n.locale = :fr %>
+  <p>Publiée, il y a <%= time_ago_in_words(publication.created_at) %></p>
+	<% I18n.locale = :en %>
+
+  <% if publication.media.attached? %>
+    <%= image_tag(publication.media.variant(resize_to_limit: [600, 600])) if publication.media.image? %>
+    <%= video_tag url_for(publication.media), controls: true if publication.media.video? %>
+  <% else %>
+    <%= image_tag("content-not-found.png", size: "300x200") %>
+  <% end %>
+  <% if utilisateur_signed_in? %>
+    <div id="publication_<%= publication.id %>_like_button" class="like_buttons">
+      <%= render partial: "publications/like_button", locals: { publication: publication } %>
+
+      <%#= inline_svg("heart-icon.svg", class: "publication-heart", width: "64px", height: "64px", color: "#{publication.liked ? 'red' : 'black'}") %>
+    </div>
+  <% end %>
+</div>

@@ -13,7 +13,7 @@
 
   <div>
     <%= form.label :utilisateur_id, style: "display: block" %>
-    <%= form.text_field :utilisateur_id %>
+    <%= form.collection_select :utilisateur_id, Utilisateur.order(:surnom), :id, :surnom, prompt:"Choisissez un utilisateur" %>
   </div>
 
   <div>

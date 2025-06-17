@@ -1,0 +1,9 @@
+<div id="publications">
+  <% @publications.each do |publication| %>
+    <%= render partial: "shared/publication", locals: {publication: publication} %>
+    <p>
+      <%= link_to "Ouvrir la publication", publication %>
+    </p>
+  <% end %>
+</div>
+<%= link_to "New publication", new_publication_path, id: "new_publication_button" %>

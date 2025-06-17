@@ -1,4 +1,5 @@
 class UtilisateurDossiersController < ApplicationController
+  before_action :authenticate_utilisateur!
   before_action :set_utilisateur_dossier, only: %i[ show edit update destroy ]
 
   # GET /utilisateur_dossiers or /utilisateur_dossiers.json

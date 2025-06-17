@@ -1,0 +1,12 @@
+<% content_for :title, "Editing signalement" %>
+
+<h1>Editing signalement</h1>
+
+<%= render "form", signalement: @signalement %>
+
+<br>
+
+<div>
+  <%= link_to "Show this signalement", @signalement %> |
+  <%= link_to "Back to signalements", signalements_path %>
+</div>

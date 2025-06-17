@@ -4,13 +4,7 @@
 
 <h1>Publications</h1>
 
-<div id="publications">
-  <% @publications.each do |publication| %>
-    <%= render publication %>
-    <p>
-      <%= link_to "Show this publication", publication %>
-    </p>
-  <% end %>
-</div>
+<%= render "shared/publication_feed" %>
 
-<%= link_to "New publication", new_publication_path %>
+<%= paginate @publications %>
+

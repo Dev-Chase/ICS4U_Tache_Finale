@@ -1,0 +1,27 @@
+<div class="field_shown" id="<%= dom_id signalement %>">
+  <p>
+    <strong>Utilisateur:</strong>
+    <%= signalement.utilisateur.surnom %>
+  </p>
+
+  <p>
+    <strong>Publication:</strong>
+    <%= link_to "#{signalement.publication.description} - #{signalement.publication.caption}", publication_path(signalement.publication_id) %>
+  </p>
+
+  <p>
+    <strong>Commentaire:</strong>
+    <%= signalement.commentaire_id %>
+  </p>
+
+  <p>
+    <strong>Raison:</strong>
+    <%= signalement.raison %>
+  </p>
+
+  <p>
+    <strong>Etat:</strong>
+    <%= signalement.etat %>
+  </p>
+
+</div>

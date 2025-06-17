@@ -1,9 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Likes" %>
+<% content_for :title, "Mes Liked Publications" %>
 
-<h1>Likes</h1>
+<h1>Mes Liked Publications</h1>
 
+<% if false %>
 <div id="likes">
   <% @likes.each do |like| %>
     <%= render like %>
@@ -14,3 +15,6 @@
 </div>
 
 <%= link_to "New like", new_like_path %>
+<% end %>
+
+<%= render "shared/publication_feed" %>

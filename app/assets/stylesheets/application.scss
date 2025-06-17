@@ -14,6 +14,38 @@
  *= require_self
  */
 
-.active {
-	color: red;
+body {
+	background-color: rgb(217, 185, 155);
 }
+
+.field_shown {
+	border-top: 1px solid black;
+}
+
+#comment-button-div {
+	width: 70px;
+	height: 70px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10%;
+	background-color: white;
+}
+
+#comment-button-div:hover {
+	cursor: pointer;
+}
+
+#navbar {
+	padding-bottom: 0.25em;
+	border-bottom: 1px solid black;
+	a {
+		font-size: 1em;
+		padding: 0 0.25em;
+	}
+
+	.active {
+		color: red;
+	}
+}
+

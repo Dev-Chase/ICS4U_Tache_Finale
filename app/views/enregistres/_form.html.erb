@@ -13,12 +13,12 @@
 
   <div>
     <%= form.label :utilisateur_dossier_id, style: "display: block" %>
-    <%= form.text_field :utilisateur_dossier_id %>
+    <%= form.collection_select :utilisateur_dossier_id, UtilisateurDossier.order(:nom), :id, :information, prompt:"Choisissez un utilisateur_dossier" %>
   </div>
 
   <div>
     <%= form.label :publication_id, style: "display: block" %>
-    <%= form.text_field :publication_id %>
+    <%= form.collection_select :publication_id, Publication.order(created_at: :desc), :id, :description, prompt:"Choisissez un publication" %>
   </div>
 
   <div>

@@ -1,0 +1,21 @@
+
+<% if publication.likes.exists?(utilisateur: current_utilisateur) %>
+  <% like = publication.likes.find_by(utilisateur: current_utilisateur) %>
+
+  <h1>❤️ Unlike!</h1>
+  <% form_with url: like_path(like), method: :delete, data: {turbo_stream: true}, class: "like-form", local: false do %>
+    <%# TODO: get rid of button style if annoying %>
+    <button type="submit" class="like-button">
+      <%= inline_svg("heart-icon.svg", class: "publication-heart", width: "64px", height: "64px", color: "red") %>
+    </button>
+  <% end %>
+
+<% else %>
+  <h1>❤️ Like!<%= link_to "test", publication_likes_path(publication) %></h1>
+  
+  <% form_with url: publication_likes_path(publication), method: :post, data: {turbo_stream: true}, class: "like-form", local: false do %>
+    <button type="submit" class="like-button">
+      <%= inline_svg("heart-icon.svg", class: "publication-heart", width: "64px", height: "64px", color: "black") %>
+    </button>
+  <% end %>
+<% end %>

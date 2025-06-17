@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_16_141740) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_16_212951) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -100,6 +100,19 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_16_141740) do
     t.index ["utilisateur_id"], name: "index_publications_on_utilisateur_id"
   end
 
+  create_table "signalements", force: :cascade do |t|
+    t.integer "utilisateur_id", null: false
+    t.integer "publication_id"
+    t.integer "commentaire_id"
+    t.text "raison"
+    t.string "etat"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentaire_id"], name: "index_signalements_on_commentaire_id"
+    t.index ["publication_id"], name: "index_signalements_on_publication_id"
+    t.index ["utilisateur_id"], name: "index_signalements_on_utilisateur_id"
+  end
+
   create_table "utilisateur_dossiers", force: :cascade do |t|
     t.integer "utilisateur_id", null: false
     t.string "nom"
@@ -112,10 +125,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_16_141740) do
     t.string "surnom"
     t.string "prenom"
     t.integer "age"
-    t.string "email"
+    t.string "email", default: "", null: false
     t.text "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_utilisateurs_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_utilisateurs_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -133,5 +152,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_16_141740) do
   add_foreign_key "notifications", "utilisateurs"
   add_foreign_key "notifications", "utilisateurs", column: "source_utilisateur_id"
   add_foreign_key "publications", "utilisateurs"
+  add_foreign_key "signalements", "commentaires"
+  add_foreign_key "signalements", "publications"
+  add_foreign_key "signalements", "utilisateurs"
   add_foreign_key "utilisateur_dossiers", "utilisateurs"
 end

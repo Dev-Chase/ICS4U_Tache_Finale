@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
+  devise_for :utilisateurs, path: '', path_names: {
+    sign_in: "utilisateur/sign_in",
+    sign_out: "utilisateur/sign_out",
+    registration: "utilisateur/sign_up"
+  }
+  resources :utilisateurs, only: [:show]
+  resources :signalements
   resources :notifications
-  resources :commentaires
-  resources :publications
-  resources :likes
+  resources :commentaires, only: [:create, :destroy, :index]
+  resources :publications do
+    resources :likes, only: [:create]
+  end
+  resources :likes, only: [:destroy, :index] # TODO: implement index to only show my liked posts -> redirect to posts so maybe remove index path
   resources :amis
   resources :enregistres
   resources :utilisateur_dossiers
-  resources :utilisateurs
   root to: "home#page"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

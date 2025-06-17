@@ -1,4 +1,5 @@
 class AmisController < ApplicationController
+  before_action :authenticate_utilisateur!
   before_action :set_ami, only: %i[ show edit update destroy ]
 
   # GET /amis or /amis.json

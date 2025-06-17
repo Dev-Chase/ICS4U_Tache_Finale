@@ -1,9 +1,10 @@
 class CommentairesController < ApplicationController
+  before_action :authenticate_utilisateur!, only: %i[ index destroy ]
   before_action :set_commentaire, only: %i[ show edit update destroy ]
 
   # GET /commentaires or /commentaires.json
   def index
-    @commentaires = Commentaire.all
+    @commentaires = Commentaire.where(utilisateur_id: current_utilisateur.id)
   end
 
   # GET /commentaires/1 or /commentaires/1.json
@@ -65,6 +66,6 @@ class CommentairesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def commentaire_params
-      params.require(:commentaire).permit(:utilisateur_id, :publication_id, :date_publiee, :contenue)
+      params.require(:commentaire).permit(:utilisateur_id, :publication_id, :contenue)
     end
 end

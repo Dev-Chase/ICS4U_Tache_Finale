@@ -1,0 +1,42 @@
+<%= form_with(model: signalement) do |form| %>
+  <% if signalement.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(signalement.errors.count, "error") %> prohibited this signalement from being saved:</h2>
+
+      <ul>
+        <% signalement.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :utilisateur_id, style: "display: block" %>
+    <%= form.collection_select :utilisateur_id, Utilisateur.order(:surnom), :id, :surnom, prompt:"Choisissez un utilisateur" %>
+  </div>
+
+  <div>
+    <%= form.label :publication_id, style: "display: block" %>
+    <%= form.collection_select :publication_id, Publication.order(created_at: :desc), :id, :description, prompt:"Choisissez un publication" %>
+  </div>
+
+  <div>
+    <%= form.label :commentaire_id, style: "display: block" %>
+    <%= form.collection_select :commentaire_id, Commentaire.order(:publication_id, created_at: :desc), :id, :information, prompt:"Choisissez un commentaire" %>
+  </div>
+
+  <div>
+    <%= form.label :raison, style: "display: block" %>
+    <%= form.text_area :raison %>
+  </div>
+
+  <div>
+    <%= form.label :etat, style: "display: block" %>
+    <%= form.text_field :etat %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

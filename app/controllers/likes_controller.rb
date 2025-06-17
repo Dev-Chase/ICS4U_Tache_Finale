@@ -1,9 +1,13 @@
 class LikesController < ApplicationController
+  before_action :authenticate_utilisateur!
   before_action :set_like, only: %i[ show edit update destroy ]
 
   # GET /likes or /likes.json
   def index
-    @likes = Like.all
+    @publications = Publication.with_attached_media.order(created_at: :desc).page(params[:page]).per(10)
+    # liked_ids = current_utilisateur.likes.where(publication_id: publications.map(&:id)).pluck(:publication_id)
+    # @publications = publications.select { |p| liked_ids.include?(p.id) }
+    # @publications.each { |p| p.liked = true }
   end
 
   # GET /likes/1 or /likes/1.json
@@ -21,16 +25,20 @@ class LikesController < ApplicationController
 
   # POST /likes or /likes.json
   def create
-    @like = Like.new(like_params)
+    @publication = Publication.find(params[:publication_id])
+    @like = @publication.likes.create(utilisateur: current_utilisateur)
+    # @like = Like.new(like_params)
 
     respond_to do |format|
-      if @like.save
-        format.html { redirect_to @like, notice: "Like was successfully created." }
-        format.json { render :show, status: :created, location: @like }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @like.errors, status: :unprocessable_entity }
-      end
+      format.turbo_stream
+      format.html { redirect_to publication_path(@publication) }
+      # if @like.save
+      #   format.html { redirect_to @like, notice: "Like was successfully created." }
+      #   format.json { render :show, status: :created, location: @like }
+      # else
+      #   format.html { render :new, status: :unprocessable_entity }
+      #   format.json { render json: @like.errors, status: :unprocessable_entity }
+      # end
     end
   end
 
@@ -49,11 +57,14 @@ class LikesController < ApplicationController
 
   # DELETE /likes/1 or /likes/1.json
   def destroy
+    @publication = @like.publication
     @like.destroy!
 
     respond_to do |format|
-      format.html { redirect_to likes_path, status: :see_other, notice: "Like was successfully destroyed." }
-      format.json { head :no_content }
+      format.turbo_stream
+      format.html { redirect_to publication_path(@publication) }
+      # format.html { redirect_to likes_path, status: :see_other, notice: "Like was successfully destroyed." }
+      # format.json { head :no_content }
     end
   end
 
