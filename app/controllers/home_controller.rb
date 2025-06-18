@@ -1,6 +1,14 @@
 class HomeController < ApplicationController
   def page
-    @publications = Publication.order(created_at: :desc).limit(5)
-    # @publications = liked_posts_if_signed_in(Publication.order(created_at: :desc).limit(5))
+    # TODO: reverse order
+    if utilisateur_signed_in?
+      @publications = Publication.where("NOT utilisateur_id = ?", current_utilisateur.id).order(created_at: :desc).limit(10)
+    else
+      @publications = Publication.order(created_at: :desc).limit(10)
+    end
+  end
+
+  def publications_amis
+      @publications = Publication.joins("INNER JOIN amis ON publications.id = amis.utilisateur_1_id OR publications.id = amis.utilisateur_2_id").where("NOT publications.utilisateur_id=?", current_utilisateur.id).order(:created_at).limit(10)
   end
 end

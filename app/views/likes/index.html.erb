@@ -17,4 +17,4 @@
 <%= link_to "New like", new_like_path %>
 <% end %>
 
-<%= render "shared/publication_feed" %>
+<%= render partial: "shared/publication_feed", locals: { show_commentaires: false } %>

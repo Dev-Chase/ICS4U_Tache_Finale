@@ -4,6 +4,9 @@
     <p>
       <%= link_to "Ouvrir la publication", publication %>
     </p>
+    <% if utilisateur_signed_in? && show_commentaires %>
+      <%= render partial: "publications/comment_section", locals: { commentaires: publication.commentaires, publication: publication } %>
+    <% end %>
   <% end %>
 </div>
 <%= link_to "New publication", new_publication_path, id: "new_publication_button" %>

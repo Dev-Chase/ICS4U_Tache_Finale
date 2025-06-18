@@ -4,6 +4,6 @@ class Commentaire < ApplicationRecord
   has_many :signalements, dependent: :destroy
 
   def information
-    "Postulé par #{utilisateur.surnom} à #{created_at}"
+    "Postulé par #{utilisateur.surnom} à #{created_at} sur #{publication.description}"
   end
 end

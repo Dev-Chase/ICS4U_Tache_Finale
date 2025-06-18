@@ -1,3 +1,3 @@
-<%= turbo_stream.replace "publication_#{publication.id}_like_button" do %>
+<%= turbo_stream.replace dom_id(@publication, :like_button)do %>
   <%= render partial: "publications/like_button", locals: { publication: @publication } %>
 <% end %>

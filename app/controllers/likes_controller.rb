@@ -1,13 +1,12 @@
 class LikesController < ApplicationController
   before_action :authenticate_utilisateur!
-  before_action :set_like, only: %i[ show edit update destroy ]
+  before_action :set_like, only: %i[ show edit update ]
 
   # GET /likes or /likes.json
   def index
     @publications = Publication.with_attached_media.order(created_at: :desc).page(params[:page]).per(10)
-    # liked_ids = current_utilisateur.likes.where(publication_id: publications.map(&:id)).pluck(:publication_id)
-    # @publications = publications.select { |p| liked_ids.include?(p.id) }
-    # @publications.each { |p| p.liked = true }
+    liked_ids = current_utilisateur.likes.where(publication_id: @publications.map(&:id)).pluck(:publication_id)
+    @publications = @publications.select { |p| liked_ids.include?(p.id) }
   end
 
   # GET /likes/1 or /likes/1.json
@@ -26,7 +25,9 @@ class LikesController < ApplicationController
   # POST /likes or /likes.json
   def create
     @publication = Publication.find(params[:publication_id])
-    @like = @publication.likes.create(utilisateur: current_utilisateur)
+    unless Like.exists?(publication_id: @publication.id, utilisateur_id: current_utilisateur.id)
+      @like = @publication.likes.create(utilisateur: current_utilisateur)
+    end
     # @like = Like.new(like_params)
 
     respond_to do |format|
@@ -57,6 +58,7 @@ class LikesController < ApplicationController
 
   # DELETE /likes/1 or /likes/1.json
   def destroy
+    @like = Like.find(params[:id])
     @publication = @like.publication
     @like.destroy!
 

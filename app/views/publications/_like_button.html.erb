@@ -1,21 +1,10 @@
+<div id="<%= dom_id(publication, :like_button) %>">
+  <% if publication.likes.exists?(utilisateur: current_utilisateur) %>
+    <% like = publication.likes.find_by(utilisateur: current_utilisateur) %>
 
-<% if publication.likes.exists?(utilisateur: current_utilisateur) %>
-  <% like = publication.likes.find_by(utilisateur: current_utilisateur) %>
+    <%= button_to "❤️", publication_like_path(publication, like), method: :delete, form: { data: { turbo_stream: true } }, class: "like-button"  %>
 
-  <h1>❤️ Unlike!</h1>
-  <% form_with url: like_path(like), method: :delete, data: {turbo_stream: true}, class: "like-form", local: false do %>
-    <%# TODO: get rid of button style if annoying %>
-    <button type="submit" class="like-button">
-      <%= inline_svg("heart-icon.svg", class: "publication-heart", width: "64px", height: "64px", color: "red") %>
-    </button>
+  <% else %>
+    <%= button_to "🩶", publication_likes_path(publication), method: :post, form: { data: { turbo_stream: true } }, class: "like-button"  %>
   <% end %>
-
-<% else %>
-  <h1>❤️ Like!<%= link_to "test", publication_likes_path(publication) %></h1>
-  
-  <% form_with url: publication_likes_path(publication), method: :post, data: {turbo_stream: true}, class: "like-form", local: false do %>
-    <button type="submit" class="like-button">
-      <%= inline_svg("heart-icon.svg", class: "publication-heart", width: "64px", height: "64px", color: "black") %>
-    </button>
-  <% end %>
-<% end %>
+</div>

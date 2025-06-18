@@ -2,7 +2,8 @@
   <%= link_to "Home", "/", class:"navbar_link#{(" active" if params[:controller]=='home')}" %>
 
   <%# TODO: remove enregistres and amis, and move to profile or change to "mes amis" and "mes publications enregistres" %>
-  <% %w[publications amis commentaires enregistres likes notifications utilisateur_dossiers signalements].each do |page| %>
+  <%# TODO: makis amis redirect to utilisateurs that are "mes amis"%>
+  <% %w[utilisateurs publications amis commentaires enregistres likes notifications utilisateur_dossiers signalements].each do |page| %>
     <%= link_to page.split('_').map(&:capitalize).join(' '), send("#{page}_path"), class:"navbar_link#{(" active" if params[:controller]==page)}" %>
   <% end %>
 </div>

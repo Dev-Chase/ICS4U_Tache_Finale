@@ -1,0 +1,25 @@
+<div id="comment-section">
+  <div id="commentaires">
+    <% commentaires.each do |commentaire_instance| %>
+      <%= render partial: "commentaires/commentaire", locals: {commentaire_instance: commentaire_instance, publication: publication} %>
+    <% end %>
+  </div>
+
+  <div id="new-comment-form">
+    <h2>Laisser un commentaire:</h2>
+    <%#= form_with(model: @commentaire, url: publication_commentaires_path(publication)) do |form| %>
+    <%= form_with(model: @commentaire, url: publication_commentaires_path(publication), data: { turbo: true }) do |form| %>
+      <%= form.hidden_field :utilisateur_id, value: current_utilisateur.id %>
+      <%= form.hidden_field :publication_id, value: publication.id %>
+
+      <div>
+        <%= form.label :contenue, "Votre commentaire" %><br>
+        <%= form.text_area :contenue %>
+      </div>
+
+      <div>
+        <%= form.submit "Commenter" %>
+      </div>
+    <% end %>
+  </div>
+</div>

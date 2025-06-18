@@ -1,17 +1,11 @@
-<div class="field_shown" id="<%= dom_id commentaire %>">
+<div id="<%= dom_id(commentaire_instance) %>" class="commentaire">
   <p>
-    <strong>Utilisateur:</strong>
-    <%= commentaire.utilisateur.surnom %>
+    <strong><%= commentaire_instance.utilisateur.surnom %>:</strong><br>
+    <%= commentaire_instance.contenue %>
+    <% if utilisateur_signed_in? && current_utilisateur.id == commentaire_instance.utilisateur_id %>
+      <%= button_to publication_commentaire_path(publication, commentaire_instance), method: :delete, form: { data: { turbo_stream: true } }, class: "comment-delete-button" do %>
+        <%= image_tag("delete-icon.png", size: "32x32", class: "delete-button") %>
+      <% end %>
+    <% end %>
   </p>
-
-  <p>
-    <strong>Publication:</strong>
-    <%= link_to commentaire.publication.description, publication_path(commentaire.publication_id) %>
-  </p>
-
-  <p>
-    <strong>Contenue:</strong>
-    <%= commentaire.contenue %>
-  </p>
-
 </div>

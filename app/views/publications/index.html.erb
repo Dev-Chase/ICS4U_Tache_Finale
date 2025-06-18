@@ -4,7 +4,8 @@
 
 <h1>Publications</h1>
 
-<%= render "shared/publication_feed" %>
+<%#= render "shared/publication_feed" %>
+<%= render partial: "shared/publication_feed", locals: { show_commentaires: false } %>
 
 <%= paginate @publications %>
 

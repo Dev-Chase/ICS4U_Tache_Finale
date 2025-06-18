@@ -4,18 +4,22 @@ Rails.application.routes.draw do
     sign_out: "utilisateur/sign_out",
     registration: "utilisateur/sign_up"
   }
-  resources :utilisateurs, only: [:show]
+  resources :utilisateurs, only: [:show, :index] do
+    resources :amis, only: [:destroy]
+  end
   resources :signalements
   resources :notifications
-  resources :commentaires, only: [:create, :destroy, :index]
   resources :publications do
-    resources :likes, only: [:create]
+    resources :likes, only: [:create, :destroy]
+    resources :commentaires, only: [:destroy, :create]
   end
-  resources :likes, only: [:destroy, :index] # TODO: implement index to only show my liked posts -> redirect to posts so maybe remove index path
-  resources :amis
+  resources :commentaires, only: [:index] # TODO: implement index to only show my comments on posts (render publication_list)
+  resources :likes, only: [:index]
+  resources :amis, except: [:destroy]
   resources :enregistres
   resources :utilisateur_dossiers
   root to: "home#page"
+  get "home/publications_amis", to: "home#publications_amis", as: "publications_amis"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

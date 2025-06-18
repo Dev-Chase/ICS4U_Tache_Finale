@@ -20,10 +20,6 @@
     <%= image_tag("content-not-found.png", size: "300x200") %>
   <% end %>
   <% if utilisateur_signed_in? %>
-    <div id="publication_<%= publication.id %>_like_button" class="like_buttons">
-      <%= render partial: "publications/like_button", locals: { publication: publication } %>
-
-      <%#= inline_svg("heart-icon.svg", class: "publication-heart", width: "64px", height: "64px", color: "#{publication.liked ? 'red' : 'black'}") %>
-    </div>
+    <%= render partial: "publications/like_button", locals: { publication: publication } %>
   <% end %>
 </div>

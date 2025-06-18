@@ -1,0 +1,8 @@
+<div id="utilisateurs">
+  <% @utilisateurs.each do |utilisateur| %>
+    <%= render partial: "shared/utilisateur", locals: { utilisateur: utilisateur } %>
+    <p>
+      <%= link_to "Show this utilisateur", utilisateur %>
+    </p>
+  <% end %>
+</div>

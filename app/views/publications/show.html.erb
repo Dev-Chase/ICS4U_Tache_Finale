@@ -7,38 +7,10 @@
     <%= link_to "Edit this publication", edit_publication_path(@publication) %> |
   <% end %>
   <%= link_to "Back to publications", publications_path %>
-  <div id="comment-section">
-    <% @commentaires.each do |commentaire_instance| %>
-      <div class="commentaire">
-        <p>
-          <strong><%= commentaire_instance.utilisateur.surnom %>:</strong><br>
-          <%= commentaire_instance.contenue %>
-          <%# TODO: implement destroy button %>
-          <% if utilisateur_signed_in? && current_utilisateur.id == @publication.utilisateur_id %>
-            <%= image_tag("delete-icon.png", size: "32x32") %>
-          <% end %>
-        </p>
-      </div>
-    <% end %>
-
-    <% if utilisateur_signed_in? %>
-      <div id="new-comment-form">
-        <h2>Laisser un commentaire:</h2>
-        <%= form_with(model: @commentaire, url: commentaires_path) do |form| %>
-          <%= form.hidden_field :utilisateur_id, value: current_utilisateur.id %>
-          <%= form.hidden_field :publication_id, value: @publication.id %>
-
-          <div>
-            <%= form.label :contenue, "Votre commentaire" %><br>
-            <%= form.text_area :contenue %>
-          </div>
-
-          <div>
-            <%= form.submit "Commenter" %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-  <%= button_to "Destroy this publication", @publication, method: :delete %>
+  <% if utilisateur_signed_in? %>
+    <%= render partial: "publications/comment_section", locals: { commentaires: @commentaires, publication: @publication } %>
+  <% end %>
+  <% if utilisateur_signed_in? && current_utilisateur.id == @publication.utilisateur_id %>
+    <%= button_to "Destroy this publication", @publication, method: :delete %>
+  <% end %>
 </div>

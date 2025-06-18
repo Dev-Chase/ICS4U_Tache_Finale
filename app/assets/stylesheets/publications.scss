@@ -20,9 +20,18 @@
     cursor: pointer;
   }
 }
-
 .like-button {
-  width: 100%;
-  height: 100px;
-  background-color: red;
+  font-size: 32px;
+}
+
+.like-button, .comment-delete-button {
+  padding: 0.2em;
+  margin: 0;
+  background: white;
+  border: none;
+  border-radius: 45%;
+}
+
+.like-button:hover, .comment-delete-button:hover {
+  cursor: pointer;
 }

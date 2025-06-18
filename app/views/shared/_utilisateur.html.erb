@@ -24,4 +24,8 @@
     <%= utilisateur.bio %>
   </p>
 
+  <% if utilisateur_signed_in? && controller.controller_name=="amis" %>
+      <%= link_to "Enlever comme amis", utilisateur_ami_path(current_utilisateur.id, utilisateur.id), method: :delete, form: { data: { turbo_stream: true } }, class: "remove-ami-link" %>
+  <% end %>
+
 </div>

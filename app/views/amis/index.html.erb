@@ -2,13 +2,13 @@
 
 <% content_for :title, "Amis" %>
 
-<h1>Amis</h1>
+<h1>Mes Amis</h1>
 
 <div id="amis">
   <% @amis.each do |ami| %>
     <%= render ami %>
     <p>
-      <%= link_to "Show this ami", ami %>
+      <%= link_to "Voire profile", utilisateur_path((ami.utilisateur_1.id == current_utilisateur.id) ? ami.utilisateur_2.id : ami.utilisateur_1.id) %>
     </p>
   <% end %>
 </div>

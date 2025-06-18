@@ -50,12 +50,26 @@ class AmisController < ApplicationController
 
   # DELETE /amis/1 or /amis/1.json
   def destroy
-    @ami.destroy!
+    @utilisateur = Utilisateur.find(params[:utilisateur_id])
+    @ami = Ami.find(params[:id])
+
+
+    if @ami.utilisateur_1 == @utilisateur || @ami.utilisateur_2 == @utilisateur
+      @other_utilisateur = (@ami.utilisateur_1 == @utilisateur) ? @ami.utilisateur_2 : @ami.utilisateur_1
+      @ami.destroy!
+    end
 
     respond_to do |format|
-      format.html { redirect_to amis_path, status: :see_other, notice: "Ami was successfully destroyed." }
-      format.json { head :no_content }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@other_utilisateur) }
+      format.html {redirect_to amis_path, notice: "Ami enlever" }
     end
+
+    # @ami.destroy!
+    #
+    # respond_to do |format|
+    #   format.html { redirect_to amis_path, status: :see_other, notice: "Ami was successfully destroyed." }
+    #   format.json { head :no_content }
+    # end
   end
 
   private

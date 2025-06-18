@@ -3,14 +3,4 @@
 <% content_for :title, "Utilisateurs" %>
 
 <h1>Utilisateurs</h1>
-
-<div id="utilisateurs">
-  <% @utilisateurs.each do |utilisateur| %>
-    <%= render utilisateur %>
-    <p>
-      <%= link_to "Show this utilisateur", utilisateur %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New utilisateur", new_utilisateur_path %>
+<%= render "shared/utilisateur_list" %>

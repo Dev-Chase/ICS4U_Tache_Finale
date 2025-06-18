@@ -1,16 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<% content_for :title, "Commentaires" %>
+<% content_for :title, "Mes Commentaires" %>
 
-<h1>Commentaires</h1>
+<h1>Mes Commentaires sur des Publications</h1>
 
+<% if false %>
 <div id="commentaires">
   <% @commentaires.each do |commentaire| %>
     <%= render commentaire %>
     <p>
-      <%= link_to "Show this commentaire", commentaire %>
+      <%= link_to "Show this commentaire", publication_path(commentaire.publication_id) %>
     </p>
   <% end %>
 </div>
-
-<%= link_to "New commentaire", new_commentaire_path %>
+<% end %>
+<%= render partial: "shared/publication_feed", locals: { show_commentaires: true } %>

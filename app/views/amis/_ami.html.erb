@@ -1,7 +1,10 @@
+<%= render partial: "shared/utilisateur", locals: { utilisateur: (ami.utilisateur_1.id == current_utilisateur.id) ? ami.utilisateur_2 : ami.utilisateur_2 } %>
+
+<% if false %>
 <div class="field_shown" id="<%= dom_id ami %>">
   <p>
     <strong>Utilisateur 1:</strong>
-    <%= ami.utilisateur_2.surnom %>
+    <%= ami.utilisateur_1.surnom %>
   </p>
 
   <p>
@@ -15,3 +18,4 @@
   </p>
 
 </div>
+<% end %>

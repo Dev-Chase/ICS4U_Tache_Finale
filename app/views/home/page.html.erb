@@ -1,3 +1,4 @@
 <h1>Welcome to Social Network!</h1>
+<h2><%= link_to "Les Publications de mes Amis", publications_amis_path %></h2>
 
-<%= render "shared/publication_feed" %>
+<%= render partial: "shared/publication_feed", locals: { show_commentaires: false } %>

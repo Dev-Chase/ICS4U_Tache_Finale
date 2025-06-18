@@ -11,11 +11,7 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :utilisateur_id, style: "display: block" %>
-    <%= form.collection_select :utilisateur_id, Utilisateur.order(:surnom), :id, :surnom, prompt:"Choisissez un utilisateur" %>
-  </div>
+  <%= form.hidden_field :utilisateur_id, value: current_utilisateur.id %>
 
   <div>
     <%= form.label :caption, style: "display: block" %>
