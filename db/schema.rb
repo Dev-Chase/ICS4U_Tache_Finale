@@ -77,16 +77,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_19_035807) do
     t.index ["utilisateur_id"], name: "index_likes_on_utilisateur_id"
   end
 
-  create_table "notifications", force: :cascade do |t|
-    t.integer "utilisateur_id", null: false
-    t.integer "publication_id"
-    t.boolean "lu"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["publication_id"], name: "index_notifications_on_publication_id"
-    t.index ["utilisateur_id"], name: "index_notifications_on_utilisateur_id"
-  end
-
   create_table "publications", force: :cascade do |t|
     t.integer "utilisateur_id", null: false
     t.text "caption"
@@ -145,8 +135,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_19_035807) do
   add_foreign_key "enregistres", "utilisateur_dossiers"
   add_foreign_key "likes", "publications"
   add_foreign_key "likes", "utilisateurs"
-  add_foreign_key "notifications", "publications"
-  add_foreign_key "notifications", "utilisateurs"
   add_foreign_key "publications", "utilisateurs"
   add_foreign_key "signalements", "publications"
   add_foreign_key "signalements", "utilisateurs"
