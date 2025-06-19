@@ -2,7 +2,7 @@
 
 <h1>New signalement</h1>
 
-<%= render "form", signalement: @signalement %>
+<%= render partial: "form", locals: {signalement: @signalement, publication: @publication} %>
 
 <br>
 

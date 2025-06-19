@@ -5,21 +5,24 @@ Rails.application.routes.draw do
     registration: "utilisateur/sign_up"
   }
   resources :utilisateurs, only: [:show, :index] do
-    resources :amis, only: [:destroy]
+    resources :amis, only: [:destroy, :create]
   end
   resources :signalements
-  resources :notifications
   resources :publications do
     resources :likes, only: [:create, :destroy]
-    resources :commentaires, only: [:destroy, :create]
+    resources :commentaires, only: [:create, :destroy]
+    resources :enregistres, only: [:destroy]
   end
-  resources :commentaires, only: [:index] # TODO: implement index to only show my comments on posts (render publication_list)
+  resources :commentaires, only: [:index]
   resources :likes, only: [:index]
-  resources :amis, except: [:destroy]
-  resources :enregistres
-  resources :utilisateur_dossiers
+  resources :amis, only: [:index]
+  resources :enregistres, only: [:show, :create]
+  resources :utilisateur_dossiers do
+    resources :enregistres, only: [:index]
+  end
   root to: "home#page"
   get "home/publications_amis", to: "home#publications_amis", as: "publications_amis"
+  get "home/mes_publications", to: "home#mes_publications", as: "mes_publications"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

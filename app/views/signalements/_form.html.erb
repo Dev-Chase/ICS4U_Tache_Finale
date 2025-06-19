@@ -10,30 +10,15 @@
       </ul>
     </div>
   <% end %>
+  <%= render partial: "shared/publication", locals: {publication: publication} %>
 
-  <div>
-    <%= form.label :utilisateur_id, style: "display: block" %>
-    <%= form.collection_select :utilisateur_id, Utilisateur.order(:surnom), :id, :surnom, prompt:"Choisissez un utilisateur" %>
-  </div>
-
-  <div>
-    <%= form.label :publication_id, style: "display: block" %>
-    <%= form.collection_select :publication_id, Publication.order(created_at: :desc), :id, :description, prompt:"Choisissez un publication" %>
-  </div>
-
-  <div>
-    <%= form.label :commentaire_id, style: "display: block" %>
-    <%= form.collection_select :commentaire_id, Commentaire.order(:publication_id, created_at: :desc), :id, :information, prompt:"Choisissez un commentaire" %>
-  </div>
+  <%= form.hidden_field :utilisateur_id, value: current_utilisateur.id %>
+  <%= form.hidden_field :publication_id, value: publication.id %>
+  <%= form.hidden_field :etat, value: "non-résolu" %>
 
   <div>
     <%= form.label :raison, style: "display: block" %>
     <%= form.text_area :raison %>
-  </div>
-
-  <div>
-    <%= form.label :etat, style: "display: block" %>
-    <%= form.text_field :etat %>
   </div>
 
   <div>

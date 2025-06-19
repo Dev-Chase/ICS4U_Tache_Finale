@@ -1,6 +1,6 @@
-<div class="field_shown" id="<%= publication.id %>">
+<div class="field_shown" id="<%= dom_id(publication) %>">
   <p>
-    <strong>Utilisateur:</strong>
+    <strong>Publiée par:</strong>
     <%= link_to publication.utilisateur.surnom, utilisateur_path(publication.utilisateur_id) %>
   </p>
 
@@ -19,7 +19,24 @@
   <% else %>
     <%= image_tag("content-not-found.png", size: "300x200") %>
   <% end %>
-  <% if utilisateur_signed_in? %>
+  <% if utilisateur_signed_in? && controller.controller_name!="signalements" %>
+    <% unless controller.controller_name=="enregistres" %>
+      <div id="publication_enregistre_<%= publication.id %>">
+        <%= form_with(url: enregistres_path, scope: :enregistre, data: { turbo: true }) do |form| %>
+          <%= form.hidden_field :publication_id, value: publication.id %>
+          <div>
+            <%= form.label :utilisateur_dossier_id, style: "display: block" %>
+            <%= form.collection_select :utilisateur_dossier_id, UtilisateurDossier.where(utilisateur_id: current_utilisateur.id).order(:nom), :id, :information, prompt:"Choisissez un Dossier" %>
+          </div>
+
+          <span class="save-post-submission">
+            <%= image_tag("save-icon.png", size:"32x32") %>
+            <%= form.submit "Enregistrer la publication" %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+    <%= link_to "Signaler la publication", new_signalement_path(publication_id: publication.id) %>
     <%= render partial: "publications/like_button", locals: { publication: publication } %>
   <% end %>
 </div>

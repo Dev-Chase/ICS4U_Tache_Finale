@@ -1,12 +1,27 @@
 <div id="publications">
-  <% @publications.each do |publication| %>
-    <%= render partial: "shared/publication", locals: {publication: publication} %>
-    <p>
-      <%= link_to "Ouvrir la publication", publication %>
-    </p>
-    <% if utilisateur_signed_in? && show_commentaires %>
-      <%= render partial: "publications/comment_section", locals: { commentaires: publication.commentaires, publication: publication } %>
+  <% if @publications.empty? %>
+    <h3>Pas de publications ici!</h3>
+  <% else %>
+    <% @publications.each do |publication| %>
+      <div id="publication_section_<%= publication.id %>">
+        <%= render partial: "shared/publication", locals: {publication: publication} %>
+
+        <% if controller.controller_name=="enregistres" %>
+          <%= button_to publication_enregistre_path(publication, @utilisateur_dossier.enregistres.find_by(publication_id: publication.id)), method: :delete, form: { data: { turbo_stream: true } }, class: "enregistre-button" do %>
+            <%= image_tag("minus.png", size: "32x32") %> Supprimer cette publication du dossier <%= @utilisateur_dossier.nom %>
+          <% end %>
+        <% end %>
+
+        <p>
+          <%= link_to "Ouvrir la publication", publication %>
+        </p>
+        <% if utilisateur_signed_in? && show_commentaires %>
+          <%= render partial: "publications/comment_section", locals: { commentaires: publication.commentaires, publication: publication } %>
+        <% end %>
+      </div>
     <% end %>
   <% end %>
 </div>
-<%= link_to "New publication", new_publication_path, id: "new_publication_button" %>
+<% if controller.controller_name=="home" || controller.controller_name=="publications" %>
+  <%= link_to "New publication", new_publication_path, id: "new_publication_button" %>
+<% end %>

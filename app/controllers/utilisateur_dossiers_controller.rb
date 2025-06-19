@@ -4,7 +4,7 @@ class UtilisateurDossiersController < ApplicationController
 
   # GET /utilisateur_dossiers or /utilisateur_dossiers.json
   def index
-    @utilisateur_dossiers = UtilisateurDossier.all
+    @utilisateur_dossiers = UtilisateurDossier.where(utilisateur_id: current_utilisateur.id)
   end
 
   # GET /utilisateur_dossiers/1 or /utilisateur_dossiers/1.json
@@ -53,7 +53,7 @@ class UtilisateurDossiersController < ApplicationController
     @utilisateur_dossier.destroy!
 
     respond_to do |format|
-      format.html { redirect_to utilisateur_dossiers_path, status: :see_other, notice: "Utilisateur dossier was successfully destroyed." }
+      format.html { redirect_to utilisateur_dossiers_path, status: :see_other, notice: "Utilisateur dossier était supprimer proprement" }
       format.json { head :no_content }
     end
   end

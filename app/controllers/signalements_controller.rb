@@ -13,10 +13,12 @@ class SignalementsController < ApplicationController
   # GET /signalements/new
   def new
     @signalement = Signalement.new
+    @publication = Publication.find(params[:publication_id])
   end
 
   # GET /signalements/1/edit
   def edit
+    @publication = @signalement.publication
   end
 
   # POST /signalements or /signalements.json
@@ -36,6 +38,7 @@ class SignalementsController < ApplicationController
 
   # PATCH/PUT /signalements/1 or /signalements/1.json
   def update
+    @publication = @signalement.publication
     respond_to do |format|
       if @signalement.update(signalement_params)
         format.html { redirect_to @signalement, notice: "Signalement was successfully updated." }

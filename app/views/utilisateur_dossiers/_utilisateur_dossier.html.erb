@@ -1,12 +1,5 @@
 <div class="field_shown" id="<%= dom_id utilisateur_dossier %>">
   <p>
-    <strong>Utilisateur:</strong>
-    <%= utilisateur_dossier.utilisateur_id %>
+    <strong><%= link_to utilisateur_dossier.nom, utilisateur_dossier_enregistres_path(utilisateur_dossier.id) %></strong>
   </p>
-
-  <p>
-    <strong>Nom:</strong>
-    <%= utilisateur_dossier.nom %>
-  </p>
-
 </div>

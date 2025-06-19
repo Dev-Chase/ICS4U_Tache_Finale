@@ -24,8 +24,23 @@
     <%= utilisateur.bio %>
   </p>
 
-  <% if utilisateur_signed_in? && controller.controller_name=="amis" %>
-      <%= link_to "Enlever comme amis", utilisateur_ami_path(current_utilisateur.id, utilisateur.id), method: :delete, form: { data: { turbo_stream: true } }, class: "remove-ami-link" %>
+  <% if utilisateur_signed_in? %>
+    <% if controller.controller_name=="amis" %>
+      <%# ALREADY AMI, remove as ami %>
+      <%= button_to utilisateur_ami_path(utilisateur.id, current_utilisateur.id), method: :delete, form: { data: { turbo_stream: true } }, class: "ami-button" do %>
+        <%= image_tag("minus.png", size: "32x32") %> Enlever comme ami
+      <% end %>
+    <% end %>
+
+    <% if controller.controller_name=="utilisateurs" && !is_amis?(utilisateur) && utilisateur.id != current_utilisateur.id %>
+      <%# NOT AMI, add as ami %>
+      <div id="add_utilisateur_<%= utilisateur.id %>">
+        <%= button_to utilisateur_amis_path(utilisateur), method: :post, scope: :ami, form: { data: { turbo_stream: true } }, class: "ami-button", id:"add_utilisateur_#{utilisateur.id}" do %>
+          <%= hidden_field_tag "ami[status]", "loading" %>
+          <%= image_tag("plus.png", size: "32x32") %> Ajouté comme ami
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 
 </div>

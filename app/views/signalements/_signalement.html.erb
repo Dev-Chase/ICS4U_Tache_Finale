@@ -1,17 +1,7 @@
 <div class="field_shown" id="<%= dom_id signalement %>">
   <p>
-    <strong>Utilisateur:</strong>
+    <strong>Laissée par:</strong>
     <%= signalement.utilisateur.surnom %>
-  </p>
-
-  <p>
-    <strong>Publication:</strong>
-    <%= link_to "#{signalement.publication.description} - #{signalement.publication.caption}", publication_path(signalement.publication_id) %>
-  </p>
-
-  <p>
-    <strong>Commentaire:</strong>
-    <%= signalement.commentaire_id %>
   </p>
 
   <p>
@@ -24,4 +14,6 @@
     <%= signalement.etat %>
   </p>
 
+  <strong>Publication en question:</strong>
+  <%= render partial: "shared/publication", locals: {publication: signalement.publication} %>
 </div>

@@ -4,7 +4,8 @@ class EnregistresController < ApplicationController
 
   # GET /enregistres or /enregistres.json
   def index
-    @enregistres = Enregistre.all
+    @utilisateur_dossier = UtilisateurDossier.find(params[:utilisateur_dossier_id])
+    @publications = Publication.joins(:enregistres).where(enregistres: {utilisateur_dossier_id: @utilisateur_dossier.id})
   end
 
   # GET /enregistres/1 or /enregistres/1.json
@@ -22,16 +23,23 @@ class EnregistresController < ApplicationController
 
   # POST /enregistres or /enregistres.json
   def create
+    if Enregistre.find_by(enregistre_params)
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.append("publication_enregistre_#{enregistre_params[:publication_id]}", partial: 'enregistres/already_exists') }
+        format.html { redirect_to @publication, notice: "Commentaire éxistait déjà." }
+      end
+
+      return
+    end
     @enregistre = Enregistre.new(enregistre_params)
 
-    respond_to do |format|
-      if @enregistre.save
-        format.html { redirect_to @enregistre, notice: "Enregistre was successfully created." }
-        format.json { render :show, status: :created, location: @enregistre }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @enregistre.errors, status: :unprocessable_entity }
+    if @enregistre.save
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.append("publication_enregistre_#{@enregistre.publication_id}", partial: 'enregistres/successfully_added') }
+        format.html { redirect_to @publication, notice: "Commentaire etait publie proprement." }
       end
+    else
+      render :new
     end
   end
 
@@ -50,11 +58,13 @@ class EnregistresController < ApplicationController
 
   # DELETE /enregistres/1 or /enregistres/1.json
   def destroy
-    @enregistre.destroy!
+    @publication = Publication.find(params[:publication_id])
+    @utilisateur_dossier = @enregistre.utilisateur_dossier
 
+    @enregistre.destroy!
     respond_to do |format|
-      format.html { redirect_to enregistres_path, status: :see_other, notice: "Enregistre was successfully destroyed." }
-      format.json { head :no_content }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove("publication_section_#{@publication.id}") }
+      format.html {redirect_to utilisateur_dossier_enregistres_path(@utilisateur_dossier), notice: "Publication Enregistré Supprimé de #{@utilisateur_dossier.nom}" }
     end
   end
 

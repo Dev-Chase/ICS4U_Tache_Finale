@@ -1,10 +1,14 @@
 class PublicationsController < ApplicationController
+  before_action :authenticate_utilisateur!, only: [:save]
   before_action :set_publication, only: %i[ show edit update destroy ]
 
   # GET /publications or /publications.json
   def index
     @publications = Publication.with_attached_media.order(created_at: :desc).page(params[:page]).per(10)
-    # @publications = liked_posts_if_signed_in(Publication.with_attached_media.order(created_at: :desc).page(params[:page]).per(10))
+  end
+
+  def save
+    @publication = Publication.find(params[:id])
   end
 
   # GET /publications/1 or /publications/1.json

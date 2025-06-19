@@ -3,8 +3,10 @@
 <%= render @signalement %>
 
 <div>
-  <%= link_to "Edit this signalement", edit_signalement_path(@signalement) %> |
-  <%= link_to "Back to signalements", signalements_path %>
 
-  <%= button_to "Destroy this signalement", @signalement, method: :delete %>
+  <% if utilisateur_signed_in? && current_utilisateur.id==@signalement.utilisateur_id %>
+    <%= button_to "Destroy this signalement", @signalement, method: :delete %>
+    <%= link_to "Edit this signalement", edit_signalement_path(@signalement) %> |
+  <% end %>
+  <%= link_to "Back to signalements", signalements_path %>
 </div>

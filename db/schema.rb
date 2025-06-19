@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_16_212951) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_19_035807) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -79,16 +79,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_16_212951) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer "utilisateur_id", null: false
-    t.integer "source_utilisateur_id", null: false
     t.integer "publication_id"
-    t.integer "commentaire_id"
-    t.string "type"
     t.boolean "lu"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["commentaire_id"], name: "index_notifications_on_commentaire_id"
     t.index ["publication_id"], name: "index_notifications_on_publication_id"
-    t.index ["source_utilisateur_id"], name: "index_notifications_on_source_utilisateur_id"
     t.index ["utilisateur_id"], name: "index_notifications_on_utilisateur_id"
   end
 
@@ -103,12 +98,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_16_212951) do
   create_table "signalements", force: :cascade do |t|
     t.integer "utilisateur_id", null: false
     t.integer "publication_id"
-    t.integer "commentaire_id"
     t.text "raison"
     t.string "etat"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["commentaire_id"], name: "index_signalements_on_commentaire_id"
     t.index ["publication_id"], name: "index_signalements_on_publication_id"
     t.index ["utilisateur_id"], name: "index_signalements_on_utilisateur_id"
   end
@@ -133,6 +126,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_16_212951) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.index ["email"], name: "index_utilisateurs_on_email", unique: true
     t.index ["reset_password_token"], name: "index_utilisateurs_on_reset_password_token", unique: true
   end
@@ -147,12 +145,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_16_212951) do
   add_foreign_key "enregistres", "utilisateur_dossiers"
   add_foreign_key "likes", "publications"
   add_foreign_key "likes", "utilisateurs"
-  add_foreign_key "notifications", "commentaires"
   add_foreign_key "notifications", "publications"
   add_foreign_key "notifications", "utilisateurs"
-  add_foreign_key "notifications", "utilisateurs", column: "source_utilisateur_id"
   add_foreign_key "publications", "utilisateurs"
-  add_foreign_key "signalements", "commentaires"
   add_foreign_key "signalements", "publications"
   add_foreign_key "signalements", "utilisateurs"
   add_foreign_key "utilisateur_dossiers", "utilisateurs"

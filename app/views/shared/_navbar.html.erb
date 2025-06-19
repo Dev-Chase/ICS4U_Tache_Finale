@@ -1,9 +1,13 @@
 <div id="navbar">
   <%= link_to "Home", "/", class:"navbar_link#{(" active" if params[:controller]=='home')}" %>
 
-  <%# TODO: remove enregistres and amis, and move to profile or change to "mes amis" and "mes publications enregistres" %>
-  <%# TODO: makis amis redirect to utilisateurs that are "mes amis"%>
-  <% %w[utilisateurs publications amis commentaires enregistres likes notifications utilisateur_dossiers signalements].each do |page| %>
+  <%# TODO: remove enregistres, and move to profile or change to "mes amis" and "mes publications enregistres" %>
+  <%# TODO: add a link labelled "Enregistrés" that leads to utilisateur_dossiers#index and then from there be able to click on a collection and view them. %>
+  <% %w[publications utilisateurs amis likes commentaires].each do |page| %>
+    <%= link_to page.split('_').map(&:capitalize).join(' '), send("#{page}_path"), class:"navbar_link#{(" active" if params[:controller]==page)}" %>
+  <% end %>
+  <%= link_to "Enregistrements", utilisateur_dossiers_path %>
+  <% %w[signalements].each do |page| %>
     <%= link_to page.split('_').map(&:capitalize).join(' '), send("#{page}_path"), class:"navbar_link#{(" active" if params[:controller]==page)}" %>
   <% end %>
 </div>

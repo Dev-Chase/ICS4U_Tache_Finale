@@ -4,8 +4,8 @@ class CommentairesController < ApplicationController
 
   # GET /commentaires or /commentaires.json
   def index
-    @publications = Publication.joins(:commentaires).having(commentaires: { utilisateur_id: current_utilisateur.id }).group(:publication_id).with_attached_media.order(created_at: :desc)
-    @commentaires = Commentaire.where(utilisateur_id: current_utilisateur.id)
+    @commentaires = Commentaire.where(utilisateur_id: current_utilisateur.id).group(:publication_id).pluck(:publication_id)
+    @publications = Publication.where("id IN (?)", @commentaires).with_attached_media.order(created_at: :desc)
   end
 
   # GET /commentaires/1 or /commentaires/1.json
@@ -28,7 +28,7 @@ class CommentairesController < ApplicationController
 
     if @commentaire.save
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.append('commentaires', partial: 'commentaires/commentaire', locals: { commentaire_instance: @commentaire, publication: @publication }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.append("commentaires-#{@publication.id}", partial: 'commentaires/commentaire', locals: { commentaire_instance: @commentaire, publication: @publication }) }
         format.html { redirect_to @publication, notice: "Commentaire etait publie proprement." }
       end
     else

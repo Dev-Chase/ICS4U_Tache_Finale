@@ -1,10 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @enregistre %>
+<%= render partial: "shared/publication", locals: {publication: @enregistre.publication} %>
 
 <div>
-  <%= link_to "Edit this enregistre", edit_enregistre_path(@enregistre) %> |
-  <%= link_to "Back to enregistres", enregistres_path %>
-
-  <%= button_to "Destroy this enregistre", @enregistre, method: :delete %>
+  <%= link_to "Retourner aux Dossiers", utilisateur_dossiers_path %>
 </div>

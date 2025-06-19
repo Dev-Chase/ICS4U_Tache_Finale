@@ -2,7 +2,7 @@
   <% if publication.likes.exists?(utilisateur: current_utilisateur) %>
     <% like = publication.likes.find_by(utilisateur: current_utilisateur) %>
 
-    <%= button_to "❤️", publication_like_path(publication, like), method: :delete, form: { data: { turbo_stream: true } }, class: "like-button"  %>
+    <%= button_to "❤️", publication_like_path(publication, like), method: :delete, form: { data: { turbo_stream: true } }, class: "like-button" %>
 
   <% else %>
     <%= button_to "🩶", publication_likes_path(publication), method: :post, form: { data: { turbo_stream: true } }, class: "like-button"  %>
