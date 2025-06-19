@@ -8,7 +8,6 @@ class Utilisateur < ApplicationRecord
   has_many :commentaires, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :enregistres, through: :utilisateur_dossiers
-  has_many :notifications, dependent: :destroy
   has_many :signalements, dependent: :destroy
 
   # User relationships

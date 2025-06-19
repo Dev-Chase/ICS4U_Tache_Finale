@@ -3,6 +3,13 @@
 <% content_for :title, "Signalements" %>
 
 <h1>Signalements</h1>
+<% if utilisateur_signed_in? %>
+  <% if !params[:utilisateur_id]  %>
+    <h3><%= link_to "Les signalements sur mes Publications", signalements_path(utilisateur_id: current_utilisateur.id) %></h3>
+  <% else %>
+    <h3><%= link_to "Retourner aux signalements globales", signalements_path %></h3>
+  <% end %>
+<% end %>
 
 <div id="signalements">
   <% @signalements.each do |signalement| %>

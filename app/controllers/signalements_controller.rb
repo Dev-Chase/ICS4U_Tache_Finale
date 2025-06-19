@@ -3,7 +3,14 @@ class SignalementsController < ApplicationController
 
   # GET /signalements or /signalements.json
   def index
-    @signalements = Signalement.all
+    if params[:utilisateur_id]
+      @signalements = Signalement.joins(:publication)
+                           .where(publications: { utilisateur_id: params[:utilisateur_id] })
+      # @signalements = Signalement.all
+    else
+      @signalements = Signalement.all
+    end
+
   end
 
   # GET /signalements/1 or /signalements/1.json
